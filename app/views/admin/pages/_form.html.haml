@@ -1,0 +1,18 @@
+= simple_form_for [:admin, @page], html: { class: 'form-horizontal' } do |f|
+  .form-actions
+    = f.button :submit, class: 'btn-primary'
+  .form-inputs
+    %fieldset
+      %legend= @page.page_breadcrumbs
+      / = f.input :layout, collection: layouts
+    %fieldset
+      %legend HEAD
+      = f.simple_fields_for :head do |fh|
+        - @page.head.each do |key, value|
+          = fh.input key, input_html: { value: value }, required: false
+    = f.hidden_field :content
+    %fieldset
+      %legend CONTENT
+      #editor{content: "#{@page.content}"}
+
+
